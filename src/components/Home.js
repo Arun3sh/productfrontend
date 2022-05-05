@@ -10,6 +10,8 @@ function Home() {
 	const [to, setTo] = useState(0);
 	const [not_from, setNot_From] = useState(0);
 	const [not_to, setNot_To] = useState(0);
+	const [cloth, setCloth] = useState('');
+
 	return (
 		<div>
 			<div className="home-wrapper">
@@ -25,14 +27,22 @@ function Home() {
 						</Button>
 
 						{/* To get all the product's name and material */}
-						<Button variant="text" color="primary">
+						<Button
+							variant="text"
+							color="primary"
+							onClick={() => setQuery('?name=true&material=true') & history.push('/result')}
+						>
 							Get All Products name & material
 						</Button>
 
 						{/* To get products between x and y */}
 						<form
 							className="get-bw-price"
-							onSubmit={() => setQuery(`?from=${from}&to=${to}`) & history.push('/result')}
+							onSubmit={() =>
+								setQuery(`?from=${from}&to=${to}`) &
+								console.log('HI', from) &
+								history.push('/result')
+							}
 						>
 							<h3>Get products between x and y</h3>
 							<TextField
@@ -57,7 +67,9 @@ function Home() {
 						{/* To Get products not between x and y */}
 						<form
 							className="get-nbw-price"
-							onSubmit={() => setQuery(`?from=${not_from}&to=${not_to}`) & history.push('/result')}
+							onSubmit={() =>
+								setQuery(`?not_from=${not_from}&not_to=${not_to}`) & history.push('/result')
+							}
 						>
 							<h3>Get products not between x and y</h3>
 							<TextField
@@ -80,7 +92,10 @@ function Home() {
 						</form>
 
 						{/* To Get products greater than x */}
-						<form className="get-greater-price">
+						<form
+							className="get-greater-price"
+							onSubmit={() => setQuery(`?greaterthan=${from}`) & history.push('/result')}
+						>
 							<h3>Get products greater than x</h3>
 							<TextField
 								variant="outlined"
@@ -95,7 +110,10 @@ function Home() {
 						</form>
 
 						{/* To Get products with id */}
-						<form className="get-by-id">
+						<form
+							className="get-by-id"
+							onSubmit={() => setQuery(`?id=${from}`) & history.push('/result')}
+						>
 							<h3>Get products with id</h3>
 							<TextField
 								variant="outlined"
@@ -110,29 +128,35 @@ function Home() {
 						</form>
 
 						{/* To Get products with material */}
-						<form className="get-by-material">
+						<form
+							className="get-by-material"
+							onSubmit={() => setQuery(`?search_material=${cloth}`) & history.push('/result')}
+						>
 							<h3>Get products with material </h3>
 							<TextField
 								variant="outlined"
 								label="material name"
 								type="string"
 								required
-								onChange={(event) => setFrom(event.target.value)}
+								onChange={(event) => setCloth(event.target.value)}
 							/>
 							<Button variant="text" color="primary" type="submit">
 								Get All Products
 							</Button>
 						</form>
 
-						{/* To Get products where colr and price */}
-						<form className="get-color-price">
-							<h3>Get products where colr and price</h3>
+						{/* To Get products where color and price */}
+						<form
+							className="get-color-price"
+							onSubmit={() => setQuery(`?color=${cloth}&price=${to}`) & history.push('/result')}
+						>
+							<h3>Get products where color and price</h3>
 							<TextField
 								variant="outlined"
 								label="color"
 								type="string"
 								required
-								onChange={(event) => setFrom(event.target.value)}
+								onChange={(event) => setCloth(event.target.value)}
 							/>
 							<TextField
 								variant="outlined"
@@ -147,7 +171,10 @@ function Home() {
 						</form>
 
 						{/* To Delete products with price */}
-						<form className="delete-by-price">
+						<form
+							className="delete-by-price"
+							onSubmit={() => setQuery(`delete-product?price=${from}`) & history.push('/result')}
+						>
 							<h3>Delete products with price </h3>
 							<TextField
 								variant="outlined"
